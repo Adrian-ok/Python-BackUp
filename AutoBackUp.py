@@ -94,7 +94,7 @@ def BackUp(list, name, dest):
         print(list[i])
         
         rutaEntrada = list[i] #ruta de entrada 
-        rutaDestino = dest + '\\' + f"BackUp {strFechaBackUp} {name[i]}.xlsx" #ruta salida con fecha y nombre del archivo, Verificar antes de ejecutar
+        rutaDestino = dest + '\\' + f"BackUp {strFechaBackUp} {name[i]}" #ruta salida con fecha y nombre del archivo, Verificar antes de ejecutar
 
         print("POR ACA PASO 3")
         print(rutaDestino)

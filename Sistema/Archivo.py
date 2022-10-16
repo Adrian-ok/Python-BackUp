@@ -23,6 +23,7 @@ class Archivos():
         myconnection.close()
 
         self.txtNameFile.clear()
+        Archivos.ReadFile(self, self.lastid)
 
     def ReadFile(self, id_ruta):
 
