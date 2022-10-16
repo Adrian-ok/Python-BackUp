@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>626</width>
-    <height>393</height>
+    <height>430</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -138,7 +138,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(85, 85, 255);</string>
+     <string notr="true">background-color: rgb(85, 170, 255);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -255,7 +255,7 @@
    <widget class="QPushButton" name="btnDelete">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>20</x>
       <y>350</y>
       <width>121</width>
       <height>31</height>
@@ -269,10 +269,36 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(255, 0, 0);</string>
     </property>
     <property name="text">
      <string>Borrar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnBackup">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>360</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 170, 127);</string>
+    </property>
+    <property name="text">
+     <string>BackUp</string>
     </property>
    </widget>
   </widget>

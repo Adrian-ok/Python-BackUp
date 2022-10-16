@@ -1,10 +1,6 @@
 #---------------------------------------------------------------------------
 #Importaciones
-import re
-import sqlite3
-import shutil
-import os
-import ntpath
+import re, sqlite3, shutil, os, ntpath
 from datetime import date
 
 
@@ -77,13 +73,11 @@ def RecuperarDestino():
     result = cursor.fetchall()
     r = str(result)
 
-    characters_to_remove = "()," 
+    chars = ['[', ']', "'", "'", ",", "(", ")"] #Cargo los caracteres a eliminar en una lista 
+    res = r.translate(str.maketrans('', '', ''.join(chars))) #Recuperar destino me devuelve el string pero con [] y '' asi que aca se los saco 
+    destiny = os.path.normpath(res) #Os.path hace el trabajo de pasar las  / a \
 
-    pattern = "[" + characters_to_remove + "]" 
-    finishResult = re.sub(pattern, "", r)
-
-
-    return str(finishResult)
+    return destiny
 
 def BackUp(list, name, dest):
     
@@ -105,17 +99,21 @@ def BackUp(list, name, dest):
 #----------------------------------------------------------------------------
 #Ejecucion
 
-files = recuperarRutas()
-names = recuperarNom()
-destino = RecuperarDestino()
+# files = recuperarRutas()
+# names = recuperarNom()
+# destino = RecuperarDestino()
 
-chars = ['[', ']', "'", "'"] #Cargo los caracteres a eliminar en una lista 
+# print(destino)
 
-res = destino.translate(str.maketrans('', '', ''.join(chars))) #Recuperar destino me devuelve el string pero con [] y '' asi que aca se los saco 
+# chars = ['[', ']', "'", "'", ",", "(", ")"] #Cargo los caracteres a eliminar en una lista 
 
-destiny = os.path.normpath(res) #Os.path hace el trabajo de pasar las  / a \ 
+# res = destino.translate(str.maketrans('', '', ''.join(chars))) #Recuperar destino me devuelve el string pero con [] y '' asi que aca se los saco 
 
-BackUp(files, names, res)
+# destiny = os.path.normpath(res) #Os.path hace el trabajo de pasar las  / a \ 
+
+# print(destiny)
+
+# BackUp(files, names, destino)
 
 
 

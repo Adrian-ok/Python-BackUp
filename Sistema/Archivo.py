@@ -1,8 +1,7 @@
-from distutils.log import error
-from operator import index
 import sqlite3
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QDialog, QApplication, QFileDialog, QMessageBox
 from DataBase.DataBase import CRUD
+from AutoBackUp import *
 
 class Archivos():
 
@@ -28,11 +27,10 @@ class Archivos():
             self.txtNameFile.clear()
             Archivos.ReadFile(self, self.lastid)
         else:
-            Archivos.WarningBtn(self)
+            Archivos.Alert(self, 0)
             print("Error")
 
     def ReadFile(self, id_ruta):
-
         myCrud = CRUD()
 
         if id_ruta > 0:
@@ -85,8 +83,9 @@ class Archivos():
             myconnection.close()
 
             self.frame.hide()
+            self.btnFrame.show()
         else:
-            Archivos.WarningBtn(self)
+            Archivos.Alert(self, 0)
 
     def BrowserFiles(self):
         fileName = QFileDialog.getOpenFileName(self, 'Open file') #verificar la ruta antes de ejecutar
@@ -96,9 +95,19 @@ class Archivos():
         self.frame.show()
         self.btnFrame.hide()
 
-    def WarningBtn(self):
-        btnWarning = QMessageBox.warning(self, 'PyQt5 message', "Campo Vacio Ingrese un dato Por favor", QMessageBox.Ok)
-        return btnWarning
+    def Alert(self, nroMsg):
+        if nroMsg == 0:
+            msgWarning = QMessageBox.warning(self, 'Error Campo Vacio', "Campo Vacio Ingrese un dato Por favor", QMessageBox.Ok)
+            return msgWarning
+        elif nroMsg == 1:
+            msgOk = QMessageBox.information(self, 'BackUp', "BackUp Exitoso", QMessageBox.Ok)
+            return msgOk
+        elif nroMsg == 2:
+            msgArchivos = QMessageBox.warning(self, 'Error Archivos', "No hay Archivos cargados", QMessageBox.Ok)
+            return msgArchivos
+        else:
+            msgDestino = QMessageBox.warning(self, 'Error Destino', "No hay Destino cargado", QMessageBox.Ok)
+            return msgDestino
 
     def DeleteFile(self):
         myCrud = CRUD()
@@ -116,12 +125,39 @@ class Archivos():
     def ClickTableView(self):
         myconnection = sqlite3.connect("AchivoBackUp.sqlite3")
         cursor = myconnection.cursor()
-        myquery = "SELECT * FROM DRINKS WHERE ID = " + str(self.selectedId) +";"
 
         files =cursor.fetchall()
-        myconnection.close() #cierro la conexión
+        myconnection.close() 
         for file in files:
-            self._name = file[1] # APELLIDO
+            self._name = file[1]
         self.txtNameFile.setText(self._name)
- 
+
+    def BackUp(self):
+
+        myconnection = sqlite3.connect("ArchivoBackUp.sqlite3")
+        cursor = myconnection.cursor()
+        myquery = "SELECT RUTA FROM RUTAS;"
+        cursor.execute(myquery)
+        result2 = cursor.fetchall()
+
+        if len(result2) > 0:
+
+            myquery2 = "SELECT RUTA_D FROM DESTINO;"
+            cursor.execute(myquery2)
+            result = cursor.fetchall()
+
+            if len(result) > 0:
+
+                files = recuperarRutas()
+                names = recuperarNom()
+                destiny = RecuperarDestino()
+
+                BackUp(files, names, destiny)
+
+                Archivos.Alert(self, 1)
+
+            else:
+                Archivos.Alert(self, 3)
         
+        else:
+            Archivos.Alert(self, 2)

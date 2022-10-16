@@ -25,6 +25,7 @@ class MainWindow(QMainWindow):
             self.btnBrowse_2.clicked.connect(lambda: Archivos.BrowserFile2(self))
             self.tableF.clicked.connect(lambda: Archivos.clicked_tabla(self))
             self.btnDelete.clicked.connect(lambda: Archivos.DeleteFile(self))
+            self.btnBackup.clicked.connect(lambda: Archivos.BackUp(self))
             Archivos.MostrarRutas(self)
 
 
