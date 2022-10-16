@@ -21,7 +21,6 @@ class MainWindow(QMainWindow):
             self.btnSave_2.clicked.connect(lambda: Archivos.SaveDestiny(self))
             self.btnBrowse.clicked.connect(lambda: Archivos.BrowserFiles(self))
             self.btnBrowse_2.clicked.connect(lambda: Archivos.BrowserFile2(self))
-            self.btnRefresh.clicked.connect(lambda: Archivos.ReadFile(self, self.lastid))
             Archivos.MostrarRutas(self)
 
 
