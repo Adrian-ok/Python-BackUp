@@ -15,12 +15,16 @@ class MainWindow(QMainWindow):
             self.frame.hide()
 
             self.lastid = 0
+            self.selectedId = 0
+            self.rowTable = 0
 
             self.btnSave.clicked.connect(lambda: Archivos.NewFile(self))
             self.btnFrame.clicked.connect(lambda: Archivos.VisibleFrame(self))
             self.btnSave_2.clicked.connect(lambda: Archivos.SaveDestiny(self))
             self.btnBrowse.clicked.connect(lambda: Archivos.BrowserFiles(self))
             self.btnBrowse_2.clicked.connect(lambda: Archivos.BrowserFile2(self))
+            self.tableF.clicked.connect(lambda: Archivos.clicked_tabla(self))
+            self.btnDelete.clicked.connect(lambda: Archivos.DeleteFile(self))
             Archivos.MostrarRutas(self)
 
 

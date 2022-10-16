@@ -64,7 +64,7 @@ class Archivos():
 
 
     def MostrarRutas(self):
-        Archivos.ReadFile(self, 0)
+        Archivos.ReadFile(self, self.lastid)
 
     def BrowserFile2(self):
         destiny = QFileDialog.getExistingDirectory(self, "Select folder")
@@ -99,3 +99,29 @@ class Archivos():
     def WarningBtn(self):
         btnWarning = QMessageBox.warning(self, 'PyQt5 message', "Campo Vacio Ingrese un dato Por favor", QMessageBox.Ok)
         return btnWarning
+
+    def DeleteFile(self):
+        myCrud = CRUD()
+        myquery = "DELETE FROM RUTAS WHERE ID = " + str(self.selectedId) + ";"
+        myCrud.Delete(myquery)
+        Archivos.ReadFile(self, 0)
+
+    def clicked_tabla(self):
+        item = self.tableF.selectedItems()
+        self.rowTable = self.tableF.currentRow()
+        self.selectedId = int(item[0].text())
+        print('itemm',int(item[0].text()))
+        self._name = item[1].text()
+
+    def ClickTableView(self):
+        myconnection = sqlite3.connect("AchivoBackUp.sqlite3")
+        cursor = myconnection.cursor()
+        myquery = "SELECT * FROM DRINKS WHERE ID = " + str(self.selectedId) +";"
+
+        files =cursor.fetchall()
+        myconnection.close() #cierro la conexión
+        for file in files:
+            self._name = file[1] # APELLIDO
+        self.txtNameFile.setText(self._name)
+ 
+        

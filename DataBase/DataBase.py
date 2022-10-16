@@ -13,6 +13,17 @@ class CRUD(object):
         result = self.myconnection.execute(myquery)
         return result
 
+    def Delete(self, myquery):
+        try:
+            self.myconnection = self.ConectarDB()
+            cursor = self.myconnection.cursor()
+            cursor.execute(myquery)
+            self.myconnection.commit()
+            cursor.close()
+            self.myconnection.close()
+        except Exception as miError:
+            print('Error:',miError)
+
     def ConectarDB(self):
         return sqlite3.connect("ArchivoBackUp.sqlite3")
 
