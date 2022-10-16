@@ -39,7 +39,7 @@ class Archivos():
 
         else:
 
-            for indice, ancho in enumerate((10, 300), start=0):
+            for indice, ancho in enumerate((10, 530), start=0):
                 self.tableF.setColumnWidth(indice, ancho)
 
             myquery = "SELECT * FROM RUTAS;"
