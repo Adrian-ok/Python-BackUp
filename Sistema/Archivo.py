@@ -1,6 +1,7 @@
+from distutils.log import error
 from operator import index
 import sqlite3
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QDialog, QApplication, QFileDialog
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QDialog, QApplication, QFileDialog, QMessageBox
 from DataBase.DataBase import CRUD
 
 class Archivos():
@@ -14,16 +15,21 @@ class Archivos():
         myCrud = CRUD()
 
         self._name = self.txtNameFile.text()
-        mydata = str(self._name)
-        myconnection = myCrud.ConectarDB()
-        cursor = myconnection.cursor()
 
-        cursor.execute("INSERT INTO RUTAS (RUTA) VALUES (?)",[mydata])
-        myconnection.commit()
-        myconnection.close()
+        if self._name != "":
+            mydata = str(self._name)
+            myconnection = myCrud.ConectarDB()
+            cursor = myconnection.cursor()
 
-        self.txtNameFile.clear()
-        Archivos.ReadFile(self, self.lastid)
+            cursor.execute("INSERT INTO RUTAS (RUTA) VALUES (?)",[mydata])
+            myconnection.commit()
+            myconnection.close()
+
+            self.txtNameFile.clear()
+            Archivos.ReadFile(self, self.lastid)
+        else:
+            Archivos.WarningBtn(self)
+            print("Error")
 
     def ReadFile(self, id_ruta):
 
@@ -68,15 +74,19 @@ class Archivos():
         myCrud = CRUD()
 
         self._destiny = self.txtDestiny.text()
-        mydata = str(self._destiny)
-        myconnection = myCrud.ConectarDB()
-        cursor = myconnection.cursor()
 
-        cursor.execute("INSERT INTO DESTINO (RUTA_D) VALUES (?)",[mydata])
-        myconnection.commit()
-        myconnection.close()
+        if self._destiny != "":
+            mydata = str(self._destiny)
+            myconnection = myCrud.ConectarDB()
+            cursor = myconnection.cursor()
 
-        self.frame.hide()
+            cursor.execute("INSERT INTO DESTINO (RUTA_D) VALUES (?)",[mydata])
+            myconnection.commit()
+            myconnection.close()
+
+            self.frame.hide()
+        else:
+            Archivos.WarningBtn(self)
 
     def BrowserFiles(self):
         fileName = QFileDialog.getOpenFileName(self, 'Open file') #verificar la ruta antes de ejecutar
@@ -85,3 +95,7 @@ class Archivos():
     def VisibleFrame(self):
         self.frame.show()
         self.btnFrame.hide()
+
+    def WarningBtn(self):
+        btnWarning = QMessageBox.warning(self, 'PyQt5 message', "Campo Vacio Ingrese un dato Por favor", QMessageBox.Ok)
+        return btnWarning

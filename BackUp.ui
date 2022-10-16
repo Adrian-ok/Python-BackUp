@@ -22,6 +22,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLineEdit" name="txtNameFile">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -181,6 +184,9 @@
      </property>
     </widget>
     <widget class="QLineEdit" name="txtDestiny">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>90</x>
