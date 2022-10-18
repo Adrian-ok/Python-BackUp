@@ -1,6 +1,6 @@
 #---------------------------------------------------------------------------
 #Importaciones
-import re, sqlite3, shutil, os, ntpath
+import re, sqlite3, shutil, os, ntpath, pathlib
 from datetime import date
 
 
@@ -10,9 +10,9 @@ from datetime import date
 def recuperarRutas():
 
     rutasFiles = []
-
+    ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute()
     #Consulta para obtener las rutas
-    myconnection = sqlite3.connect("ArchivoBackUp.sqlite3")
+    myconnection = sqlite3.connect(ruta)
     cursor = myconnection.cursor()
 
     myquery = "SELECT RUTA FROM RUTAS;"
@@ -40,8 +40,8 @@ def recuperarNom():
 
     #Consulta para obtener rutas 
     nameFiles = []
-
-    myconnection = sqlite3.connect("ArchivoBackUp.sqlite3")
+    ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute()
+    myconnection = sqlite3.connect(ruta)
     cursor = myconnection.cursor()
 
     myquery = "SELECT RUTA FROM RUTAS;"
@@ -63,8 +63,8 @@ def recuperarNom():
     return nameFiles
 
 def RecuperarDestino():
-
-    myconnection = sqlite3.connect("ArchivoBackUp.sqlite3")
+    ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute()
+    myconnection = sqlite3.connect(ruta)
     cursor = myconnection.cursor()
 
     myquery = "SELECT RUTA_D FROM DESTINO WHERE ID = (SELECT MAX(ID) FROM DESTINO);"
@@ -114,6 +114,10 @@ def BackUp(list, name, dest):
 # print(destiny)
 
 # BackUp(files, names, destino)
+
+ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute()
+
+print(ruta)
 
 
 

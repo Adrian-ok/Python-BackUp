@@ -1,11 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget
-from Sistema.Archivo import Archivos
+from Archivo import Archivos
 from PyQt5.uic import loadUi
 
 #---------------------------------------------------------------------------------
 
-from Sistema.Archivo import Archivos
+
 
 class MainWindow(QMainWindow):
       def __init__(self, parent=None):
