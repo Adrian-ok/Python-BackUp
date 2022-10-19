@@ -138,17 +138,6 @@ class Archivos():
         print('itemm',int(item[0].text())) #Impresion de control
         self._name = item[1].text() 
 
-    # def ClickTableView(self):#mostrar click 
-    #     ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute() #Me deviuelve la ruta de la bd
-    #     myconnection = sqlite3.connect(ruta) #Conecto
-    #     cursor = myconnection.cursor()
-
-    #     files =cursor.fetchall()
-    #     myconnection.close() 
-    #     for file in files:
-    #         self._name = file[1]
-    #     self.txtNameFile.setText(self._name)
-
     def BackUp(self): #BackUp se encarga de consultar rutas y archivos y las copia
         ruta = pathlib.Path("ArchivoBackUp.sqlite3").absolute()
         myconnection = sqlite3.connect(ruta)
@@ -166,10 +155,11 @@ class Archivos():
             if len(result) > 0: #Si la tabla Destino ese igual a 0 esta vacia
 
                 files = recuperarRutas() 
-                names = recuperarNom()
+                # names = recuperarNom()
                 destiny = RecuperarDestino()
 
-                BackUp(files, names, destiny) #Llamo a backUp
+                BackUp(files,destiny) #Llamo a backUp y le paso la ruta de destino del backup
+                borrar(destiny) #llamo a borrar y le paso la ruta de destino del backup
 
                 Archivos.Alert(self, 1) #Aviso BackUp Exitoso
 
